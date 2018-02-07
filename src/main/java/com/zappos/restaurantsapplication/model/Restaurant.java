@@ -1,10 +1,21 @@
 package com.zappos.restaurantsapplication.model;
 
 import java.util.List;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.hibernate.validator.constraints.NotBlank;
 public class Restaurant {
+	@NotBlank
+	 @Id
+	 @GeneratedValue(strategy=GenerationType.AUTO)
 	 private Integer id;
+	 @NotBlank
 	 private String name;
 	 private Double rating;
+	 @NotBlank
 	 private String address;
 	 private List<Object> menus;
 	 

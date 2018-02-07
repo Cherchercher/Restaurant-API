@@ -3,16 +3,26 @@ package com.zappos.restaurantsapplication.model;
 
 import java.util.List;
 import org.hibernate.validator.constraints.NotBlank;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 
 
 public class Item {
+	@NotBlank
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
+	@NotBlank
 	private Integer menuId;
+	@NotBlank
 	private Integer rId;
+	@NotBlank
 	private String name;
+	@NotBlank
 	private Integer price;
+	@NotBlank
 	private String vegan;
 
 	

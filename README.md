@@ -20,17 +20,20 @@ Each restaurant can have a number of menus with attributes such as type (breakfa
 
 ## Resources and Actions
 
-| URL                                         | HTTP | Method | Operation                                                                                     |
-|---------------------------------------------|------|--------|-----------------------------------------------------------------------------------------------|
-| /api/restaurants                            |      | Get    | Returns an array of restaurant                                                                |
-| /api/restaurants/:id                        |      | Get    | Return the restaurant with id of :id                                                          |
-| /api/restaurants/:id/menus                  |      | Get    | Return an array of menu associated with restaurant id of :id                                  |
-| /api/restaurants/:rid/menus/:mid            |      | Get    | Return the menu associated with restaurant id of :rid and menu id of :mid                     |
-| /api/restaurants/:rid/menus/:mid/items      |      | Get    | Return the items associated with restaurant id of :rid and menu id of :mid                    |
-| /api/restaurants/:rid/menus/:mid/items/:iid |      | Get    | Return the item associated with restaurant id of :rid and menu id of :mid and item id of :iid |
-|                                             |      |        |                                                                                               |
-
-
+| URL                                     | HTTP | Method | Operation                                                                                     |
+|-----------------------------------------|------|--------|-----------------------------------------------------------------------------------------------|
+| /restaurants                            |      | Get    | Returns an array of restaurant                                                                |
+| /restaurants/:id                        |      | Get    | Return the restaurant with id of :id                                                          |
+| /restaurants/:id/menus                  |      | Get    | Return an array of menu associated with restaurant id of :id                                  |
+| /restaurants/:rid/menus/:mid            |      | Get    | Return the menu associated with restaurant id of :rid and menu id of :mid                     |
+| /restaurants/:rid/menus/:mid/items      |      | Get    | Return the items associated with restaurant id of :rid and menu id of :mid                    |
+| /restaurants/:rid/menus/:mid/items/:iid |      | Get    | Return the item associated with restaurant id of :rid and menu id of :mid and item id of :iid |
+| /menus                                  |      | Get    | Return an array of menus                                                                      |
+| /menus/:id                              |      | Get    | Return a menu with id of :id                                                                  |
+| /menus/:id/items                        |      | Get    | Return all items associated with menu id of :id                                               |
+| /menus/:mid/items/:id                   |      | Get    | Return an item associated with menu id of :mid and item id of :id                             |
+| /items                                  |      | Get    | Return an array of items                                                                      |
+| /items/:id                              |      | Get    | Return an item with id of :id                                                                 |
 
 ## How to use:
 1) Git clone or download folder

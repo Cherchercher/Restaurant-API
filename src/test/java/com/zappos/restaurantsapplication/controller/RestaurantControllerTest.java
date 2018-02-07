@@ -24,6 +24,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
@@ -82,6 +84,7 @@ public class RestaurantControllerTest {
                 .addFilters(new CORSFilter())
                 .build();
     }
+	// ======== Tests for Restaurants
 	// =========================================== Get All Restaurants ==========================================
 	@Test
 	public void TestRetrieveRestaurants() throws Exception {
@@ -201,7 +204,133 @@ public class RestaurantControllerTest {
    		    verifyNoMoreInteractions(restaurantService);
    		    
    	}
-  	
+ 	
+   	// Tests for Menus
+
+ // =========================================== Get All Menus  ==========================================
+
+ 	@Test
+ 	public void TestRetrieveAllMenus() throws Exception {
+ 	List<Object> menus= Arrays.asList(menu1,menu3);
+ 		    when(restaurantService.retrieveMenus()).thenReturn(menus);
+ 		    mockMvc.perform(get("/menus"))
+ 		            .andExpect(status().isOk())
+ 		            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+ 		            .andExpect(jsonPath("$", hasSize(2)))
+ 		            .andExpect(jsonPath("$[0].id", is(1)))
+ 		            .andExpect(jsonPath("$[0].rId", is(1)))
+ 		            .andExpect(jsonPath("$[0].type", is("brunch")))
+ 		            .andExpect(jsonPath("$[1].id", is(2)))
+		            .andExpect(jsonPath("$[1].rId", is(1)))
+		            .andExpect(jsonPath("$[1].type", is("dinner")));
+ 		    verify(restaurantService, times(1)).retrieveMenus();
+ 		    verifyNoMoreInteractions(restaurantService);
+ 	}
+ 	
+ 	
+ 	
+ // =========================================== Get A Menu  ==========================================
+  	@Test
+  	public void TestRetrieveAMenu() throws Exception {
+  		    when(restaurantService.retrieveMenu(1)).thenReturn(menu1);
+  		    mockMvc.perform(get("/menus/1"))
+  		            .andExpect(status().isOk())
+  		            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+  		          .andExpect(jsonPath("$.id", is(1)))
+                  .andExpect(jsonPath("$.rId", is(1)))
+          			.andExpect(jsonPath("$.type", is("brunch")));
+  		    verify(restaurantService, times(1)).retrieveMenu(1);
+  		    verifyNoMoreInteractions(restaurantService);  
+  	}
+ 	
+ // =========================================== Get all items==========================================
+   	@Test
+   	public void TestRetrieveAllItems() throws Exception {
+   			List<Object> items = Arrays.asList(item1,item3);
+   		    when(restaurantService.retrieveItems(1)).thenReturn(items);
+   		    mockMvc.perform(get("/menus/1/items"))
+   		            .andExpect(status().isOk())
+   		            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+   		            .andExpect(jsonPath("$", hasSize(2)))
+		            .andExpect(jsonPath("$[0].id", is(1)))
+		            .andExpect(jsonPath("$[0].name", is("egg benedit")))
+		            .andExpect(jsonPath("$[0].menuId", is(1)))
+		            .andExpect(jsonPath("$[0].rId", is(1)))
+		            .andExpect(jsonPath("$[0].price", is(15)))
+		            .andExpect(jsonPath("$[0].vegan", is("non-vegan")))
+		            .andExpect(jsonPath("$[1].id", is(3)))
+		            .andExpect(jsonPath("$[1].name", is("olive bread")))
+		            .andExpect(jsonPath("$[1].menuId", is(1)))
+		            .andExpect(jsonPath("$[1].rId", is(1)))
+		            .andExpect(jsonPath("$[1].price", is(15)))
+		            .andExpect(jsonPath("$[1].vegan", is("vegan")));
+   		    verify(restaurantService, times(1)).retrieveItems(1);
+   		    verifyNoMoreInteractions(restaurantService);
+   		    
+   	}
+   	
+    // =========================================== Get an item ==========================================
+   	@Test
+   	public void TestRetrieveAMenuItem() throws Exception {
+   		    when(restaurantService.retrieveItem(1,1)).thenReturn(item1);
+   		    mockMvc.perform(get("/menus/1/items/1"))
+   		            .andExpect(status().isOk())
+   		            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		            .andExpect(jsonPath("$.id", is(1)))
+		            .andExpect(jsonPath("$.name", is("egg benedit")))
+		            .andExpect(jsonPath("$.menuId", is(1)))
+		            .andExpect(jsonPath("$.rId", is(1)))
+		            .andExpect(jsonPath("$.price", is(15)))
+		            .andExpect(jsonPath("$.vegan", is("non-vegan")));
+   		    verify(restaurantService, times(1)).retrieveItem(1,1);
+   		    verifyNoMoreInteractions(restaurantService);
+   		    
+   	}
+ 	
+ // =========================================== Get all items==========================================
+   	@Test
+   	public void TestRetrieveItemsThemselves() throws Exception {
+   			List<Object> items = Arrays.asList(item1,item3);
+   		    when(restaurantService.retrieveItems()).thenReturn(items);
+   		    mockMvc.perform(get("/items"))
+   		            .andExpect(status().isOk())
+   		            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+   		            .andExpect(jsonPath("$", hasSize(2)))
+		            .andExpect(jsonPath("$[0].id", is(1)))
+		            .andExpect(jsonPath("$[0].name", is("egg benedit")))
+		            .andExpect(jsonPath("$[0].menuId", is(1)))
+		            .andExpect(jsonPath("$[0].rId", is(1)))
+		            .andExpect(jsonPath("$[0].price", is(15)))
+		            .andExpect(jsonPath("$[0].vegan", is("non-vegan")))
+		            .andExpect(jsonPath("$[1].id", is(3)))
+		            .andExpect(jsonPath("$[1].name", is("olive bread")))
+		            .andExpect(jsonPath("$[1].menuId", is(1)))
+		            .andExpect(jsonPath("$[1].rId", is(1)))
+		            .andExpect(jsonPath("$[1].price", is(15)))
+		            .andExpect(jsonPath("$[1].vegan", is("vegan")));
+   		    verify(restaurantService, times(1)).retrieveItems();
+   		    verifyNoMoreInteractions(restaurantService);
+   		    
+   	}
+   	
+    // =========================================== Get an item ==========================================
+   	@Test
+   	public void TestRetrieveItemItself() throws Exception {
+   		    when(restaurantService.retrieveItem(1)).thenReturn(item1);
+   		    mockMvc.perform(get("/items/1"))
+   		            .andExpect(status().isOk())
+   		            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		            .andExpect(jsonPath("$.id", is(1)))
+		            .andExpect(jsonPath("$.name", is("egg benedit")))
+		            .andExpect(jsonPath("$.menuId", is(1)))
+		            .andExpect(jsonPath("$.rId", is(1)))
+		            .andExpect(jsonPath("$.price", is(15)))
+		            .andExpect(jsonPath("$.vegan", is("non-vegan")));
+   		    verify(restaurantService, times(1)).retrieveItem(1);
+   		    verifyNoMoreInteractions(restaurantService);
+   		    
+   	}
+ 	
 //    
 //    @Test
 //    public void TestRetrieveRestaurantByID404NotFound() throws Exception {

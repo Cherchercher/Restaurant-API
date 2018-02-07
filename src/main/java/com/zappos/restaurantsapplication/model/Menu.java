@@ -5,9 +5,13 @@ import java.util.List;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class Menu {
+	@NotBlank
 	private Integer id;
+	@NotBlank
 	private Integer rId;
+	@NotBlank
 	private String type;
+	@NotBlank
 	private List<Object> items;
 
 
