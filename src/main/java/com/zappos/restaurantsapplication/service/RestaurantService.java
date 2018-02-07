@@ -24,7 +24,7 @@ public class RestaurantService {
 		Item item4= new Item(4,"herbal tea", 1,1,15,"vegan");
 		// brunch menus
 		Menu menu1 = new Menu(1,1, "brunch", Arrays.asList(item1,item3));
-		Menu menu2 = new Menu(2,2, "brunch", Arrays.asList(item2,item4));
+		Menu menu2 = new Menu(1,2, "brunch", Arrays.asList(item2,item4));
 		
 		
 		//dinner items
@@ -33,15 +33,15 @@ public class RestaurantService {
 		Item item7 = new Item(7,"red wine", 1,1,15,"vegan");
 		Item item8 = new Item(8,"champaign", 1,1,15,"vegan");
 		// dinner menus
-		Menu menu3 = new Menu(1,1, "dinner", Arrays.asList(item5,item7));
+		Menu menu3 = new Menu(2,1, "dinner", Arrays.asList(item5,item7));
 		Menu menu4 = new Menu(2,2, "dinner", Arrays.asList(item6,item8));
 
 		Restaurant restaurant1 = new Restaurant(1, "A_resto", 3.00 , "5 Arroya Drive, Irvine",
-				Arrays.asList(1, 1, "kids-friendly",Arrays.asList(menu1,menu3))
+				Arrays.asList(menu1,menu3)
 		);
 		
 		Restaurant restaurant2 = new Restaurant(2, "B_resto", 4.00 , "3 Brista Drive, Brisbane",
-				Arrays.asList(1, 2, "Romantic",Arrays.asList(menu2,menu4))
+				Arrays.asList(menu2,menu4)
 		);
 		
 		restaurants.add(restaurant1);

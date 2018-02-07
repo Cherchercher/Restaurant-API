@@ -2,7 +2,6 @@ package com.zappos.restaurantsapplication.model;
 
 
 import java.util.List;
-
 import org.hibernate.validator.constraints.NotBlank;
 
 
@@ -39,6 +38,14 @@ public class Item {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public Integer getmenuId() {
 		return menuId;
 	}
@@ -72,13 +79,12 @@ public class Item {
 		this.vegan = vegan;
 	}
 
-	
 
 
 	@Override
 	public String toString() {
 		return String.format(
-				"Menu [id=%d, name=%name, menuId=%d, rId=%d, price=%d, vegan=%s]", id, name, menuId, rId, price,vegan);
+				"Item [id=%d, name=%s, menuId=%d, rId=%d, price=%d, vegan=%s]", id, name, menuId, rId, price,vegan);
 	}
 
 }

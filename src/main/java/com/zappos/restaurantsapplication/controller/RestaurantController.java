@@ -21,9 +21,9 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantService restaurantService;
 
-	@GetMapping("/restaurants/")
+	@GetMapping("/restaurants")
 	public List<Object> retrieveRestaurants() {
-		return restaurantService.retrieveRestaurants();
+		return restaurantService.retrieveAllRestaurants();
 	}
 	
 	@GetMapping("/restaurants/{restaurantId}")
