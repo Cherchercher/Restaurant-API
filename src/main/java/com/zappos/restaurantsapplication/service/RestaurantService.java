@@ -218,6 +218,7 @@ public class RestaurantService {
 	 public void deleteItem(int id) {
 	     Item item = findItemById(id);
 	     items.remove(item);
+	   
 	 }
 	 
 	 public void deleteMenu(int id) {

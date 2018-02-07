@@ -34,6 +34,9 @@ Each restaurant can have a number of menus with attributes such as type (breakfa
 | /menus/:mid/items/:id                   |      | Get    | Return an item associated with menu id of :mid and item id of :id                             |
 | /items                                  |      | Get    | Return an array of items                                                                      |
 | /items/:id                              |      | Get    | Return an item with id of :id                                                                 |
+| /items/:id                              |      | Delete | Delete an item with id of :id                                                                 |
+| /menus/:id                              |      | Delete | Delete a menu with id of :id                                                                  |
+| /restaurants/:id                        |      | Delete | Delete a restaurant with id of :id                                                            |
 
 ## How to use:
 1) Git clone or download folder

@@ -23,6 +23,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -330,16 +333,30 @@ public class RestaurantControllerTest {
    		    verifyNoMoreInteractions(restaurantService);
    		    
    	}
- 	
-//    
-//    @Test
-//    public void TestRetrieveRestaurantByID404NotFound() throws Exception {
-//    	 	when(restaurantService.retrieveRestaurant(3)).thenReturn(null);
-//
-//        mockMvc.perform(get("/restaurants/{id}", 3))
-//                .andExpect(status().isNotFound());
-//
-//        verify(restaurantService, times(1)).retrieveRestaurant(1);
-//        verifyNoMoreInteractions(restaurantService);
-//    }
+   	
+   	// ================Deletion tests====================
+    
+	@Test
+   	public void TestDeleteItem() throws Exception {
+   	 	RestaurantService mock = org.mockito.Mockito.mock(RestaurantService.class);
+   	 	mock.deleteItem(1);
+   	 	verify(mock, times(1)).deleteItem(1);;
+   	}
+	
+	@Test
+   	public void TestDeleteRestaurant() throws Exception {
+   	 	RestaurantService mock = org.mockito.Mockito.mock(RestaurantService.class);
+   	 	mock.deleteRestaurant(1);
+   	 	verify(mock, times(1)).deleteRestaurant(1);;
+   	}
+	
+	@Test
+   	public void TestDeleteMenu() throws Exception {
+   	 	RestaurantService mock = org.mockito.Mockito.mock(RestaurantService.class);
+   	 	mock.deleteMenu(1);
+   	 	verify(mock, times(1)).deleteMenu(1);;
+   	}
+   	
+   	
+ 
 }

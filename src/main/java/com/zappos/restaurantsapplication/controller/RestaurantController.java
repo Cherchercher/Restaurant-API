@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,8 +98,31 @@ public class RestaurantController {
 	}
 		
 	
-	// ============================ Delete Methods ======================
-//	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@DeleteMapping("/items/{itemId}")
+	public Object deleteItem(@PathVariable("itemId") Integer Id) {
+		 List<Object> items = retrieveItems();
+		 Item item  = RestaurantService.findItemById(Id);
+		 ((RestaurantService) items).deleteItem(Id);
+		 return item;
+	}
+	
+	@DeleteMapping("/menus/{menuId}")
+	public Object deleteMenu(@PathVariable("menuId") Integer Id) {
+		 List<Object> menus = retrieveMenus();
+		 Menu menu  = RestaurantService.findMenuById(Id);
+		 ((RestaurantService) menus).deleteMenu(Id);
+		 return menu;
+	}
+	
+	@DeleteMapping("/restaurants/{restaurantId}")
+	public Object deleteRestaurant(@PathVariable("restaurantId") Integer Id) {
+		 List<Object> restaurants = retrieveRestaurants();
+		 Restaurant restaurant  = RestaurantService.findRestaurantById(Id);
+		 ((RestaurantService) restaurants).deleteRestaurant(Id);
+		 return restaurant;
+	}
+	
+	//@DeleteMapping("/items/{itemId}")
 //    public ResponseEntity<Void> deleteRestaurant(@PathVariable("id") int id){
 //        Restaurant restaurant = RestaurantService.findRestaurantById(id);
 //
