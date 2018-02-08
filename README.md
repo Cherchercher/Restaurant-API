@@ -37,6 +37,12 @@ Each restaurant can have a number of menus with attributes such as type (breakfa
 | /items/:id                              |      | Delete | Delete an item with id of :id                                                                 |
 | /menus/:id                              |      | Delete | Delete a menu with id of :id                                                                  |
 | /restaurants/:id                        |      | Delete | Delete a restaurant with id of :id                                                            |
+| /restaurants                            |      | Post   | Add a new restaurant                                                                          |
+| /restaurants/:rId/menus                 |      | Post   | Add a new menu to restaurant with restaurant id of :rId                                       |
+| /restaurants/:rId/menus/:iId            |      | Post   | Add a new item to a menu with restaurant id of :rId and item id of :iId                       |
+| /menus/                                 |      | Post   | Add a new menu                                                                                |
+| /menus/:mid/items                       |      | Post   | Add a new item to menu with menu id of :mid                                                   |
+| /items/                                 |      | Post   | Add a new item                                                                                |                                                       |
 
 ## How to use:
 1) Git clone or download folder

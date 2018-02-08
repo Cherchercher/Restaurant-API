@@ -1,17 +1,13 @@
 package com.zappos.restaurantsapplication.controller;
 
-import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.List;
-
-import org.json.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,18 +19,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import com.zappos.restaurantsapplication.model.Item;
 import com.zappos.restaurantsapplication.controller.RestaurantController;
 import com.zappos.restaurantsapplication.filter.CORSFilter;
@@ -54,7 +45,17 @@ public class RestaurantControllerTest {
 	
 	@InjectMocks
     private RestaurantController restaurantController;
+	String exampleRestaurantJson = "{\"id\":\"3\",\"name\":\"G_resto\",\"ratings\":\"3.00\", \"address\": \"C star route, Venus\" "
+			+ ", \"menus\" "
+			+ ":[{\"id\":\"1\",\"\rId\":\"3\",\"type\":\"brunch\" " 
+			+ ", \"items\" "
+			+ ":[{\"id\":\"1\",\"\name\":\"steak\",\"menuId\":\"1\",\"rId\":\"3\", \"price\":\"20\"}]}]}";
 
+	String exampleMenuJson = "{\"id\":\"1\",\"\rId\":\"3\",\"type\":\"brunch\" " 
+			+ ", \"items\" "
+			+ ":[{\"id\":\"1\",\"\name\":\"steak\",\"menuId\":\"1\",\"rId\":\"3\", \"price\":\"20\"}]}";
+	
+	String exampleItemJson = "{\"id\":\"1\",\"\name\":\"steak\",\"menuId\":\"1\",\"rId\":\"3\", \"price\":\"20\"}";
 	Item item1= new Item(1,"egg benedit", 1,1,15,"non-vegan");
 	Item item2= new Item(2,"ham sandwich", 1,1,15,"non-vegan");
 	Item item3= new Item(3,"olive bread", 1,1,15,"vegan");
@@ -333,9 +334,9 @@ public class RestaurantControllerTest {
    		    verifyNoMoreInteractions(restaurantService);
    		    
    	}
-   	
+ 
    	// ================Deletion tests====================
-    
+   	
 	@Test
    	public void TestDeleteItem() throws Exception {
    	 	RestaurantService mock = org.mockito.Mockito.mock(RestaurantService.class);
@@ -356,7 +357,5 @@ public class RestaurantControllerTest {
    	 	mock.deleteMenu(1);
    	 	verify(mock, times(1)).deleteMenu(1);;
    	}
-   	
-   	
- 
+
 }

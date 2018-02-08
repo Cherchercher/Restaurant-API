@@ -1,7 +1,6 @@
 package com.zappos.restaurantsapplication.model;
 
 
-import java.util.List;
 import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

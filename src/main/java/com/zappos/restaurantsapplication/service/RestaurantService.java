@@ -1,7 +1,5 @@
 package com.zappos.restaurantsapplication.service;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -198,18 +196,7 @@ public class RestaurantService {
 	  }
 	 
 	 
-	 public void addRestaurant(Restaurant restaurant) {
-	     restaurants.add(restaurant);
-	 }
-	 
-	 public void addMenu(Menu menu) {
-	     menus.add(menu);
-	 }
-	 
-	 public void addItem(Menu item) {
-	     menus.add(item);
-	 }
-	   
+   
 	 public void deleteRestaurant(int id) {
 	     Restaurant restaurant = findRestaurantById(id);
 	     restaurants.remove(restaurant);
@@ -226,6 +213,14 @@ public class RestaurantService {
 	     menus.remove(menu);
 	 }
 	 
+	 //===== POST methods for restaurants
+	 
+	 public Restaurant addRestaurant(Restaurant restaurant) {
+	     restaurants.add(restaurant);
+	     return restaurant;
+	 }
+	 
+	
 	 public Menu addMenu(Integer rId, Menu menu) {
 			Restaurant restaurant = retrieveRestaurant(rId);
 			if (restaurant == null) {
@@ -244,6 +239,24 @@ public class RestaurantService {
 			return item;
 	 }
 	 
+	 //===== POST methods for menus
+	 public Menu addMenu(Menu menu) {
+			menus.add(menu);
+			return menu;
+	 }
+	 
+	 public Item addItem(Integer menuId, Item item) {
+			Menu menu = retrieveMenu(menuId);
+			if (menu == null) {
+				return null;
+			}
+			((Menu) menu).getItems().add(item);
+			return item;
+	 }
+	 //== POST methods for items
+	 public void addItem(Menu item) {
+	     menus.add(item);
+	 }
 	 
 	 
 	 

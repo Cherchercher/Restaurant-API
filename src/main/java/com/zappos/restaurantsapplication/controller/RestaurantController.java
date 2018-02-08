@@ -1,25 +1,20 @@
 package com.zappos.restaurantsapplication.controller;
 
-import java.net.URI;
 import java.util.List;
-
+import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.zappos.restaurantsapplication.model.Item;
 import com.zappos.restaurantsapplication.model.Menu;
 import com.zappos.restaurantsapplication.model.Restaurant;
 import com.zappos.restaurantsapplication.service.RestaurantService;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 public class RestaurantController {
@@ -97,7 +92,7 @@ public class RestaurantController {
 		return restaurantService.retrieveItem(Id);
 	}
 		
-	
+	// ============================ Delete Methods  ======================
 	@DeleteMapping("/items/{itemId}")
 	public Object deleteItem(@PathVariable("itemId") Integer Id) {
 		 List<Object> items = retrieveItems();
@@ -122,40 +117,69 @@ public class RestaurantController {
 		 return restaurant;
 	}
 	
-	//@DeleteMapping("/items/{itemId}")
-//    public ResponseEntity<Void> deleteRestaurant(@PathVariable("id") int id){
-//        Restaurant restaurant = RestaurantService.findRestaurantById(id);
-//
-//        if (restaurant == null){
-//              return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-//        }
-//
-//        restaurantService.deleteRestaurant(id);
-//        return new ResponseEntity<Void>(HttpStatus.OK);
-//    }
-//	
-//	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-//    public ResponseEntity<Void> deleteMenu(@PathVariable("id") int id){
-//        Menu menu = RestaurantService.findMenuById(id);
-//
-//        if (menu == null){
-//              return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-//        }
-//
-//        restaurantService.deleteMenu(id);
-//        return new ResponseEntity<Void>(HttpStatus.OK);
-//    }
-//	
-//	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-//    public ResponseEntity<Void> deleteItem(@PathVariable("id") int id){
-//        Item item = RestaurantService.findItemById(id);
-//
-//        if (item == null){
-//              return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-//        }
-//
-//        restaurantService.deleteItem(id);
-//        return new ResponseEntity<Void>(HttpStatus.OK);
-//    }
+	
+	// ============================ Post Methods for Restaurants ======================
+		@PostMapping("/restaurants")
+		public ResponseEntity<Void> addRestaurant(@RequestBody Restaurant newRestaurant) {
+			Restaurant restaurant = restaurantService.addRestaurant(newRestaurant);
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(
+				"/{id}").buildAndExpand(restaurant.getId()).toUri();
+			return ResponseEntity.created(location).build();
+		}
+		
+		
+		@PostMapping("/restaurants/{restaurantId}/menus")
+		public ResponseEntity<Void> addMenu(@PathVariable("restaurantId") Integer rId,@RequestBody Menu newMenu) {
+			Menu menu = restaurantService.addMenu(rId, newMenu);
 
+			if (menu == null)
+				return ResponseEntity.noContent().build();
+
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(
+					"/{id}").buildAndExpand(newMenu.getId()).toUri();
+
+			return ResponseEntity.created(location).build();
+		}
+		
+		@PostMapping("/restaurants/{restaurantId}/menus/{menuId}/items")
+		public ResponseEntity<Void> addItem(@PathVariable("restaurantId") Integer rId,
+				@PathVariable("menuId") Integer menuId, @RequestBody Item newItem) {
+			Item item = restaurantService.addItem(rId, menuId, newItem);
+
+			if (item == null)
+				return ResponseEntity.noContent().build();
+
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(
+					"/{id}").buildAndExpand(newItem.getId()).toUri();
+			return ResponseEntity.created(location).build();
+			
+		}
+		
+		// ============================ Post Methods for Menus ======================
+		@PostMapping("/menus")
+		public ResponseEntity<Void> addMenu(@RequestBody Menu newMenu) {
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(
+			"/{id}").buildAndExpand(newMenu.getId()).toUri();
+			return ResponseEntity.created(location).build();
+		}
+				
+				
+				
+		@PostMapping("/menus/{menuId}/items")
+		public ResponseEntity<Void> addItem(@PathVariable("menuId") Integer menuId, @RequestBody Item newItem) {
+			Item item = restaurantService.addItem( menuId, newItem);
+			if (item == null)
+					return ResponseEntity.noContent().build();
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(
+							"/{id}").buildAndExpand(newItem.getId()).toUri();
+			return ResponseEntity.created(location).build();
+		}
+		
+		// ============================ Post Methods for Menus ======================
+		@PostMapping("/items")
+		public ResponseEntity<Void> addItem(@RequestBody Item newItem) {
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(
+			"/{id}").buildAndExpand(newItem.getId()).toUri();
+			return ResponseEntity.created(location).build();
+		}
 }
